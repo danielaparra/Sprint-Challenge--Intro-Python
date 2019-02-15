@@ -24,8 +24,6 @@ cities = []
 
 import csv
 
-
-
 def cityreader(cities=[]):
   # TODO Implement the functionality to read from the 'cities.csv' file
   # For each city record, create a new City instance and add it to the 
@@ -86,5 +84,29 @@ def cityreader_stretch(lat1, lon1, lat2, lon2, cities=[]):
   # TODO Ensure that the lat and lon valuse are all floats
   # Go through each city and check to see if it falls within 
   # the specified coordinates.
+  minLat = min(lat1, lat2)
+  maxLat = max(lat1, lat2)
+
+  minLon = min(lon1, lon2)
+  maxLon = max(lon1, lon2)
+
+  for city in cities:
+    if float(city.lat) >= minLat and float(city.lat) <= maxLat and float(city.lon) >= minLon and float(city.lon) <= maxLon:
+      within.append(city)
 
   return within
+
+
+
+while True:
+    userinput1 = input('>> Enter lat1, lon1: ')
+    userinput2 = input('>> Enter lat2, lon2: ')
+
+    info1 = userinput1.split(',')
+    info2 = userinput2.split(',')
+
+    results = cityreader_stretch(int(info1[0]), int(info1[1]), int(info2[0]), int(info2[1]), cities)
+
+    print("Results:")
+    for result in results:
+      print(f'{result.name}: ({result.lat},{result.lon})')
